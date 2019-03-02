@@ -1,0 +1,13 @@
+# Inventory-System
+CIIMS is an inventory Management system developed by Mugoya Dihfahsih, Enock Katenda and Kaddu Innocent for Canon Innovations Ltd
+
+CIIMS is an inventory Management system developed by Mugoya Dihfahsih, Enock Katenda and Kaddu Innocent for Canon Innovations Ltd
+To use this system as part of your project, simply clone it to your favorite IDE or you can also just download it as a zip file 
+and the extract the files into your desired IDE.
+
+SETUP Requirements
+1. You need to install Python 3* and configure its path to the enviroment variables of your computer
+2. You need to also install pip by downloading it from https://bootstrap.pypa.io/get-pip.py or type this in your command line 'python get-pip.py'.
+3. You also need to install django on your computer using pip install Django.
+4. install your favorite PYTHON IDE, it can be PyChym, Atom, Sublime, VS Code etc.
+5. Install all the necesarry libraries and packages to get your project started.
