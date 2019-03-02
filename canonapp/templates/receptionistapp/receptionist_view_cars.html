@@ -1,0 +1,42 @@
+{% extends "receptionistapp/reception_header.html" %}
+{% block body %}
+<div class="container">
+    <h2>All available cars</h2>
+     <br>
+     <table class="table table-hover" border="2">
+        <thead class="table-success">
+        <br>
+        <tr>
+            <td>id</td>
+            <td>Name</td>
+            <td>Model</td>
+            <td>Engine No.</td>
+            <td>Plate No.</td>
+            <td>Fuel Consumption</td>
+            <td>Status</td>
+            <td>Image</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.car_name }}</td>
+            <td>{{ item.car_model }}</td>
+            <td>{{ item.car_engine_no }}</td>
+            <td>{{ item.car_registration_no }}</td>
+            <td>{{ item.car_consumption_rate }}</td>
+            <td>{{ item.availability }}</td>
+            <td><img src="{{ item.car_image.url }}" height="50" width="50"/></td>
+
+         {% endfor %}
+
+         </tr>
+
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "operationsapp/operations_header.html" %}
+{% block body %}
+<h2>All available complaints</h2>
+<div class="container">
+     <br>
+<table class="table table-hover" border="2">
+        <thead class="table-success">
+        <br>
+        <tr border="2">
+            <td>id</td>
+            <td>Complaint</td>
+            <td>Driver</td>
+            <td>Other Complainant</td>
+            <td>Handle</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.complaint }}</td>
+            <td>{{ item.complainant }}</td>
+            <td>{{ item.other_complainant }}</td>
+            <td><a href="{% url 'operations_handle_complaint' item.pk %}" class="btn btn-primary bt-sm" role="button">clear off</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    {% load staticfiles %}
+
+
+
+    <link type="text/css" rel="stylesheet" href="{% static '/receptionistapp/css/bootstrap.min.css' %}"/>
+
+    <link type="text/css" rel="stylesheet" href="{% static '/receptionistapp/css/mystyles.css' %}"/>
+
+    <script src="{% static "receptionistapp/js/jquery-3.3.1.js" %}"></script>
+
+    <script src="{% static "receptionistapp/js/rango-jquery.js" %}"></script>
+
+    <script src="{% static "receptionistapp/js/bootstrap.min.js" %}"></script>
+
+    <title>CIMS receptionist panel</title>
+
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <a class="navbar-brand" href="{% url 'receptionist_home' %}">Receptionist Panel </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
+
+  </button>
+
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+
+        <a class="nav-link" href="{% url 'receptionist_view_cars' %}">Cars</a>
+
+      </li>
+
+      <li class="nav-item active">
+
+        <a class="nav-link" href="{% url 'receptionist_view_drivers' %}">Drivers</a>
+
+      </li>
+
+        <li class="nav-item active">
+
+        <a class="nav-link" href="{% url 'receptionist_view_complaints' %}">Complaints</a>
+
+      </li>
+
+    </ul>
+       <li class="nav-item active float-lg-right" >
+
+       <a class="nav-link" href="{% url 'logout' %}">LOG OUT</a>
+
+          </li>
+
+
+  </div>
+  
+  
+
+</nav>
+
+
+
+
+{% block body %}
+
+
+
+
+
+{% endblock %}
+
+
+
+
+</body>
+
+</html>

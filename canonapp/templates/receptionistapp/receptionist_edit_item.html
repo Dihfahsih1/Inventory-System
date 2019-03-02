@@ -1,0 +1,18 @@
+{% extends "operationsapp/operations_header.html" %}
+
+
+{% block body %}
+<h2>Editing {{ header }}</h2>
+<div class="container">
+
+{% load crispy_forms_tags %}
+
+<form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+          {{ form|crispy }}
+      <button type="submit" class="btn btn-primary" name="button">Edit {{ header }} </button>
+
+      </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "receptionistapp/reception_header.html" %}
+{% block body %}
+
+<h2>All available drivers</h2>
+
+<div class="container">
+
+    <a href="{% url 'operations_add_driver' %}" class="btn btn-primary bt-sm" role="button">Add Driver</a>
+
+     
+     
+     
+           <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <br>
+
+        <p>{{ info }}</p>
+            <tr border="2">
+
+            <td>No</td>
+            <td>Name</td>
+            <td>Contact</td>
+            <td>Picture</td>
+            <td>Attached Car</td>
+            <td>Driver Details</td>
+
+
+
+        </tr>
+
+
+        </thead>
+
+        <tbody>
+
+        {% for item in items %}
+
+            <tr>
+
+            <td>{{ item.pk }}</td>
+
+            <td>{{ item.driver_name }}</td>
+
+            <td>{{ item.driver_contact }}</td>
+
+            <td><img src="{{ item.driver_image.url }}" height="80" width="80"></td>
+
+            <td><a href="{% url 'receptionist_view_car_details' item.pk %}">{{ item.attached_car }}</a></td>
+            <td><a href="{% url 'receptionist_view_driver_details' item.pk %}">Driver Details</a></td>
+
+
+        {% endfor %}
+
+            </tr>
+            
+
+        <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+
+                <td><a href="{% url 'operations_export_drivers' %}" class="btn btn-primary bt-sm" role="button">Export driver data</a></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+
+  <br/>
+
+
+</div>
+{% endblock %}

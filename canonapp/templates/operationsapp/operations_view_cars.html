@@ -1,0 +1,140 @@
+{% extends "operationsapp/operations_header.html" %}
+
+{% block body %}
+
+<h2>All available cars</h2>
+
+<div class="container">
+
+    <a href="{% url 'operations_add_car' %}" class="btn btn-primary bt-sm" role="button">Add Car</a>
+
+     <br>
+
+     <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <br>
+
+        <tr border="2">
+
+            <td>id</td>
+
+            <td>Name</td>
+
+            <td>Model</td>
+
+            <td>Engine No</td>
+
+            <td>Plate No.</td>
+
+            <td>Fuel Consumption</td>
+
+            <td>Image</td>
+
+            <td>Status</td>
+
+            <td>Edit</td>
+
+            <td>Delete</td>
+
+
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for item in items %}
+
+            <tr>
+
+            <td>{{ item.pk }}</td>
+
+            <td>{{ item.car_name }}</td>
+
+            <td>{{ item.car_model }}</td>
+
+            <td>{{ item.car_engine_no }}</td>
+
+            <td>{{ item.car_registration_no }}</td>
+
+            <td>{{ item.car_consumption_rate }}</td>
+
+            <td><img src="{{ item.car_image.url }}" height="50" width="50"/></td>
+
+            <td>{{ item.availability }}</td>
+
+            <td><a href="{% url 'operations_edit_car' item.pk %}" class="btn btn-warning bt-sm" role="button">Edit</a></td>
+            
+            <td>
+                
+                            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+              Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Delete Car here</h4>
+                  </div>
+                  <div class="modal-body">
+                      <h3>Are you sure you want to delete car?</h3>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="{% url 'operations_delete_car' item.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+                
+                
+                
+                
+            </td>
+
+
+
+
+         {% endfor %}
+
+
+
+         </tr>
+
+        <tr>
+  
+            <td><a href="{% url 'operations_add_car' %}" class="btn btn-primary bt-sm" role="button">Add Car</a></td>
+            <td></td>
+            <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+ 
+            <td><a href="{% url 'operations_export_cars' %}" class="btn btn-primary bt-sm" role="button">Export car data</a></td>
+
+        
+
+        </tr>
+
+
+
+        </tbody>
+
+    </table>
+
+
+
+
+
+</div>
+
+{% endblock %}

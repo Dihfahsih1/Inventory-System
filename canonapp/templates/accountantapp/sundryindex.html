@@ -1,0 +1,124 @@
+{% extends 'accountantapp/accountant_header.html' %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <nav class="nav navbar-expand  ">
+
+      <ul class="navbar-nav mr-auto bg-light">
+
+
+
+          <li class="nav-item {% if url_name == 'driver_general_financial_report' %}active{% endif %}">
+
+              <a class="nav-link" href="{% url 'driver_general_financial_report' %}" ><button class="btn btn-primary">Driver Payments</button></a>
+
+          </li>
+
+             <li>
+
+              <a class="nav-link"href="{% url 'expenditurereport'  %}">
+                <button class="btn btn-primary">Main Expenses</button></a>
+
+          </li>
+
+          <li class="nav-item {% if url_name == 'sundryreport' %}active{% endif %}">
+
+              <a class="nav-link" href="{% url 'sundryreport'  %}"><button class="btn btn-default">Petty Cash</button></a>
+
+          </li>
+
+
+
+            <li>
+
+               <a class="nav-link" href="{% url 'salaryreport'  %}"><button class="btn btn-primary">Staff Salaries</button></a>
+
+          </li>
+
+          
+      </ul>
+
+    </nav>
+     <h3>Small Expenses Report for the month of {{ month }}</h3>
+
+    <table class="table table-hover" border="2">
+
+    <thead class="font-weight-bold table-success ">
+
+    <tr>
+
+        <td>Date</td>
+
+        <td>Name</td>
+
+        <td>Reason</td>
+
+        <td>Amount</td>
+
+        <td>Actions</td>
+
+    </tr>
+
+    </thead>
+
+
+
+        <tbody>
+
+        {% for total in queryset %}
+
+        <tr>
+
+
+
+        <td>{{ total.Date}}</td>
+
+        <td>{{ total.PaymentMadeTo}}</td>
+
+        <td>{{ total.ReasonForPayment }}</td>
+
+        <td>{{ total.Amount }}</td>
+        
+        <td>
+          <a href="{% url 'edit_sundry' total.id %}" ><button class="btn btn-info">Edit Payment</button></a> |
+          <a href="{% url 'sundryreceipt' total.id %}" target="_new"><button class="btn btn-light">Print Voucher</button></a>
+          
+        </td>
+        </tr>
+
+        {% endfor %}
+
+     <td class="jumbotron"><h3>TOTAL</h3></td>
+
+        <td class="jumbotron"><h3>----------------------</h3></td>
+
+        <td class="jumbotron"><h3>----------------------</h3></td>
+
+        <td class="jumbotron"><h3>{{ total }}</h3></td>
+
+    </tbody>
+    </table> 
+    <a href="{% url 'sundryarchive' %}"><button class="btn btn-warning float-lg-right">Submit Report </button> </a>
+    <b class="float-right"> OR </b>
+    <a href="{% url 'sundrypdf'%}" target="_new"><button class="btn btn-danger float-lg-right"> Print Report</button></a>
+   
+
+
+</div>
+
+
+
+<br><br>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

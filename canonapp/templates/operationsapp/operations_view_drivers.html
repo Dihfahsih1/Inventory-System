@@ -1,0 +1,131 @@
+{% extends "operationsapp/operations_header.html" %}
+
+{% block body %}
+
+<h2>All available drivers</h2>
+
+<div class="container">
+
+    <a href="{% url 'operations_add_driver' %}" class="btn btn-primary bt-sm" role="button">Add Driver</a>
+
+     
+     
+     
+           <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <br>
+
+        <p>{{ info }}</p>
+            <tr border="2">
+
+            <td>No</td>
+            <td>Name</td>
+            <td>Contact</td>
+            <td>Picture</td>
+            <td>Attached Car</td>
+            <td>Driver Details</td>
+            <td>Edit</td>
+            <td>Delete</td>
+
+
+        </tr>
+
+
+        </thead>
+
+        <tbody>
+
+        {% for item in items %}
+
+            <tr>
+
+            <td>{{ item.pk }}</td>
+
+            <td>{{ item.driver_name }}</td>
+
+            <td>{{ item.driver_contact }}</td>
+
+            <td><img src="{{ item.driver_image.url }}" height="80" width="80"></td>
+
+
+            <td><a href="{% url 'operations_view_car_details' item.pk %}">{{ item.attached_car }}</a></td>
+
+            <td><a href="{% url 'operations_view_driver_details' item.pk %}">Driver Details</a></td>
+
+            <td><a href="{% url 'operations_edit_driver' item.pk %}" class="btn btn-warning bt-sm" role="button">Edit</a></td>
+
+            
+            <td>
+                
+                            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+              Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Delete Driver here</h4>
+                  </div>
+                  <div class="modal-body">
+                      <h3>Are you sure you want to delete driver?</h3>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="{% url 'operations_delete_driver' item.pk %}" class="btn btn-danger bt-sm" role="button">Confirm</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+                
+                
+                
+                
+            </td>
+        {% endfor %}
+
+            </tr>
+            
+
+        <tr>
+                <td><a href="{% url 'operations_add_driver' %}" class="btn btn-primary bt-sm" role="button">Add Driver</a></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  
+                <td><a href="{% url 'operations_export_drivers' %}" class="btn btn-primary bt-sm" role="button">Export driver data</a></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+
+
+
+   
+
+
+
+
+ 
+
+
+
+  <br/>
+
+  
+
+
+
+</div>
+
+{% endblock %}

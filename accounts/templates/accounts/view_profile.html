@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Profile</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <p>Username: {{ user.username }}</p>
+        <p>First Name: {{ user.first_name }}</p>
+        <p>Last Name: {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Phone: {{ user.userprofile.phone }}</p>
+        <p>Role: {{ user.userprofile.role }}</p>
+        <p>Hired on: {{ user.userprofile.hired_date }}</p>
+        <img src="{{ user.userprofile.image.url }}" width="240">
+    </div>
+{% endblock %}

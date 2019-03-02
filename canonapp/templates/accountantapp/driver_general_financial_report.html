@@ -1,0 +1,185 @@
+{% extends "accountantapp/accountant_header.html" %}
+
+
+
+{% block body %}
+
+<div class="container">
+ <nav class="nav navbar-expand">
+
+      <ul class="navbar-nav mr-auto bg-light">
+
+
+
+          <li >
+
+              <a class="nav-link" href="{% url 'driver_general_financial_report' %}" ><button class="btn btn-default">Driver Payments</button></a>
+
+          </li>
+
+             <li>
+
+              <a class="nav-link"href="{% url 'expenditurereport'  %}"><button class="btn btn-primary">Main Expenses</button></a>
+
+          </li>
+
+          <li>
+
+              <a class="nav-link" href="{% url 'sundryreport'  %}"><button class="btn btn-primary">Petty Cash</button></a>
+
+          </li>
+
+
+
+            <li>
+
+               <a class="nav-link" href="{% url 'salaryreport'  %}"><button class="btn btn-primary">Staff Salaries</button></a>
+
+          </li>
+
+
+      </ul>
+
+    </nav>
+
+    
+    <h3>The Monthly Financial Report Of {{ item_number }} Drivers Only</h3>
+    <p>{{ message }}</p>
+
+     <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <br>
+
+        <tr>
+
+            <td>id</td>
+
+            <td>Driver Name</td>
+
+            <td>Car Plate</td>
+
+            <td>Amount Paid</td>
+
+            <td>Balance</td>
+
+            <td>Financial statement</td>
+            <td>Print</td>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for item in items %}
+
+            <tr>
+
+            <td>{{ item.pk }}</td>
+
+            <td>{{ item.driver_name }}</td>
+
+            <td>{{ item.driver_car }}</td>
+
+            <td>{{ item.amount_paid }}</td>
+
+            <td>{{ item.balance  }}</td>
+
+            <td><a href="{% url 'accountant_display_driver_financial_statement' item.driver_name %}" class="btn btn-primary bt-sm" role="button">View statement</a></td>
+
+            <td><a href="{% url 'accountant_print_driverfinancial_report' item.driver_name %}" target="_new" class="btn btn-primary bt-sm" role="button">Print statement</a></td>
+
+
+
+         {% endfor %}
+
+         </tr>
+         
+         <tr>
+             <td>Total Amount paid:{{ driver_total_paid }}  UGX</td>
+             <td>Total balances:{{ driver_total_balance }} UGX</td>
+             <td><a href="{% url 'print_general_financial_report' %}" target="_new" class="btn btn-primary bt-sm" role="button">Print Financial Report</a></td>
+             <td>
+                                                          <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+              Submit Financial report
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 id="myModalLabel" class="text-warning">..........!!!!SERIOUS WARNING!!!!..............</h4>
+                  </div>
+                  <div class="modal-body">
+                      <h1>PLEASE TAKE SERIOUS NOTICE(WARNING)</h1>
+                      <h4>1.Make sure you confirm if and only if its the end of the month and you are submiting a monthly report</h4>
+                      <h4>2.This button is very sensitive to company data</h4>
+                      <h4>3.The moment you confirm just know payment data for the current month will be archived and you will nolonger see it here unless you go to archives</h4>
+                      <h4>4.After confirmation this month data is taken to archives</h4>
+                      <h5 class="text-primary">Select year and corresponding month to archive(Company Cycle)</h5>
+                        <form class="form-inline" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                            <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
+                          <select class="custom-select mr-sm-2" name="archived_year" id="inlineFormCustomSelect">
+                              {% for report_year in years %}
+                                 <option name="{{ report_year }}" value="{{ report_year }}">{{ report_year }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                            <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
+                          <select class="custom-select mr-sm-2" name="archived_month" id="inlineFormCustomSelect">
+                              {% for report_month in months %}
+                                 <option name="{{ report_month }}" value="{{ report_month }}">{{ report_month }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                         <div class="col-auto my-1">
+                        <button type="submit" class="btn btn-primary">Submit Report</button>
+                        </div>
+                        </form>
+
+                      
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                          
+                  </div>
+                </div>
+              </div>
+            </div>
+                 
+                 
+             </td>
+
+            
+            
+
+             
+         </tr>
+
+         <br/>
+
+        </tbody>
+
+    </table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

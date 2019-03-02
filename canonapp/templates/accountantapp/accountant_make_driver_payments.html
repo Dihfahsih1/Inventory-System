@@ -1,0 +1,112 @@
+{% extends "accountantapp/accountant_header.html" %}
+
+{% block body %}
+
+<h3>Receive Driver Payments.</h3>
+
+<div class="container">
+
+     <br>
+
+
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <div class="col-md-10">
+
+      {% load crispy_forms_tags %}
+
+      <form method="post" enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+          {{ form|crispy }}
+
+      <button type="submit" class="btn btn-primary" name="button">Submit</button>
+
+      </form>
+
+  </div>
+
+
+
+    </div>
+
+  <div class="col-md-8">  
+
+  <div class="table-responsive" style="width: 130%;">
+       <h4>All Driver Payments Made in the Month of:</h4>
+      <table class="table table-hover" border="2">
+
+        <thead class="table-success">
+
+        <br>
+
+        <tr border="2">
+
+            <td>Date</td>
+            <td>Driver Name & Vehicle</td>
+            <td>Paid Amount</td>
+            <td>Paid By</td>
+            <td>Received By</td>
+            <td>Print Receipt</td>
+            <td>Edit Payment</td>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for item in items %}
+
+            <tr>
+
+            <td>{{ item.date }}</td>
+
+            <td>{{ item.driver_name }}</td>
+
+            <td>{{ item.paid_amount }}</td>
+
+            <td>{{ item.paid_by }}</td>
+
+            <td>{{ item.received_by }}</td>
+
+            <td><a href="{% url 'print_driverPayment_receipt' item.pk %}"  target="_new" class="btn btn-primary bt-sm" role="button">Print Receipt</a></td>
+            <td><a href="{% url 'accountant_edit_driver_receipts' item.pk  %}" class="btn btn-primary bt-sm" role="button">Edit Payment</a></td>
+
+
+
+         {% endfor %}
+
+
+
+         </tr>
+
+         <br/>
+
+        </tbody>
+
+    </table>
+
+
+
+
+
+  </div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

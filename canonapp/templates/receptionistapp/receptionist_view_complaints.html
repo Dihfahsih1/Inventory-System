@@ -1,0 +1,69 @@
+{% extends "receptionistapp/reception_header.html" %}
+{% block body %}
+<h2>All available complaints</h2>
+<div class="container">
+    <a href="{% url 'receptionist_add_complaint' %}" class="btn btn-primary bt-sm" role="button">Add Complaint</a>
+     <br>
+<table class="table table-hover" border="2">
+        <thead class="table-success">
+        <br>
+        <tr>
+            <td>id</td>
+            <td>Complaint</td>
+            <td>Driver</td>
+            <td>Other Complainant</td>
+            <td>Status</td>
+            <td>Forward</td>
+            <td>Edit</td>
+            <td>Delete</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.complaint }}</td>
+            <td>{{ item.complainant }}</td>
+            <td>{{ item.other_complainant }}</td>
+            <td>{{ item.forwarded_status }} AND<br>{{ item.handled_status }}
+            </td>
+            <td><a href="{% url 'receptionist_forward_complaint' item.pk %}" class="btn btn-primary bt-sm" role="button">Forward</a></td>
+            <td><a href="{% url 'receptionist_edit_complaint' item.pk %}" class="btn btn-warning bt-sm" role="button">Edit</a></td>
+
+            <td>
+                            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+              Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Delete Complaint here</h4>
+                  </div>
+                  <div class="modal-body">
+                      <h3>Are you sure you want to delete complaint?</h3>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="{% url 'receptionist_delete_complaint' item.pk %}" class="btn btn-primary bt-sm" role="button">Confirm</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+                
+            </td>
+            
+            
+            
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

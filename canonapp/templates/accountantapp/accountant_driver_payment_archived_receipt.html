@@ -1,0 +1,158 @@
+{% extends "accountantapp/accountant_header.html" %}
+
+{% block body %}
+
+    <p>
+        <a href="{% url 'accountant_profile' %}">HOME</a> > <a href="{% url 'expenditurereport' %}">ARCHIVED</a> ><a
+            href="{% url 'expenditurearchive' %}"> Main Expenses</a>
+    </p><br>
+
+    <nav class="nav navbar-expand">
+        <ul class="navbar-nav mr-auto bg-light">
+
+            <li class="nav-item {% if url_name == 'accountant_driver_payment_archive' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'accountant_driver_payment_archive' %}">
+                    <button class="btn btn-success">Driver Payment Reports</button>
+                </a>
+            </li>
+            
+            <li class="nav-item {% if url_name == 'accountant_driver_payment_archived_receipt' %}active{% endif %} ">
+                <a class="nav-link" href="{% url 'accountant_driver_payment_archived_receipt' %}">
+                    <button class="btn btn-default">Driver Payment Receipts</button>
+                </a>
+            </li>
+            <li class="nav-item {% if url_name == 'expenditurearchive' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'expenditurearchive' %}">
+                    <button class="btn btn-success">Expenses Archive</button>
+                </a>
+            </li>
+            <li class="nav-item {% if url_name == 'sundryarchive' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'sundryarchive' %}">
+                    <button class="btn btn-success">Petty Cash Archive</button>
+                </a>
+            </li>
+
+            <li class="nav-item {% if url_name == 'salaryarchive' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'salaryarchive' %}">
+                    <button class="btn btn-success">Salaries Paid Archive</button>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+<div class="container">
+
+            <table class="table table-hover" border="2">
+           <thead>
+           <tr>
+              
+               <th><h2>Search for Driver Payment Receipts</h2></th>
+           </tr>
+
+           </thead>
+            <tbody>
+                <tr>
+
+                    <td>
+
+                        <form class="form-inline" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Drivers</label>
+                          <select class="custom-select mr-sm-2" name="receipt_driver" id="inlineFormCustomSelect">
+                              {% for driver in drivers %}
+                                 <option value="{{ driver.driver_name }}">{{ driver.driver_name }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+
+                            <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Year</label>
+                          <select class="custom-select mr-sm-2" name="receipt_year" id="inlineFormCustomSelect">
+                              {% for year in years %}
+                                 <option value="{{ year }}">{{ year }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                            <div class="col-auto my-1">
+                          <label class="mr-sm-2" for="inlineFormCustomSelect">Month</label>
+                          <select class="custom-select mr-sm-2" name="receipt_month" id="inlineFormCustomSelect">
+                              {% for month in months %}
+                                 <option value="{{ month }}">{{ month }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                            <div class="col-auto my-1">
+                                <label class="mr-sm-2" for="inlineFormCustomSelect">Search</label>
+                          <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+
+
+                        </form>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    
+    
+    <p>Driver Monthly Receipts table</p>
+        <table class="table table-hover" border="2">
+        <thead class="table-success">
+        <tr border="2">
+
+            <td>Date of payment</td>
+            <td>Driver Name</td>
+            <td>Paid Amount</td>
+            <td>Paid By</td>
+            <td>Paid By</td>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for receipt in archived_receipts %}
+
+            <tr>
+
+            <td>{{ receipt.date }}</td>
+
+            <td>{{ receipt.driver_name }}</td>
+
+            <td>{{ receipt.paid_amount }}</td>
+
+            <td>{{ receipt.paid_by }}</td>
+            
+            <td>{{ receipt.received_by }}</td>
+
+         {% endfor %}
+
+
+
+         </tr>
+         
+         <tr>
+             <td><a href="#"  target="_new" class="btn btn-primary bt-sm" role="button">Print Statement</a></td>
+
+         </tr>
+
+        </tbody>
+
+    </table>
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+
+{% endblock %}
